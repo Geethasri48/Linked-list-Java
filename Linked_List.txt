@@ -1,0 +1,554 @@
+Data Structure:
+ It tells about the way you organize the elements.
+ 
+It is classified into 2 types
+1) Linear Data Structure
+   The elements which are arranged in a sequential or linear manner is called Linear data structure.
+   Ex:
+     Stack, Queue
+	 
+2) Non Linear Data Structure
+   The elements which are arrange in not a sequential or non linear manner is called non linear data structure.
+   Ex:
+    Tree, Graphs
+
+If I want to implement Linear and non linear data structures I have to use the following 
+1) Array
+  Drawbacks:
+    1) Insertion and Deletion at the middle is very difficult.
+  If the most frequent operation is accessing the elements then arrays preferable.
+  
+2) Linked List
+  Advantage:
+    1) Insertion and Deletions are very easy in linked list.
+  If the most frequent operations are insertion and deletions then Linked List is preferable.
+
+
+Linked List Operations:
+Traversal
+Insertion
+Deletion
+Searching
+
+1) Traversal
+Logic:
+  Node curr=head;
+  while(curr!=null)
+  {
+     System.out.println(curr.data+" ");
+	 curr=curr.next;
+  }
+  
+2) Insertion
+  a) Insertion at Begining:
+  Logic:
+     Node temp=new Node(new_ele);
+	 temp.next=head;
+	 head=temp;
+	 return head;
+	 
+  b) Insertion at Ending:
+  Logic:
+     Node temp=new Node(new_ele);
+	 if(head==null)
+	   return temp;
+	 Node curr=head;
+	 while(curr.next!=null)
+	    curr=curr.next;
+	 curr.next=temp;
+	 return head;
+	 
+  c) Insertion at given position:
+  Logic:
+     Node temp=new Node(new_ele);
+	 if(pos==1)
+	 {
+	   temp.next=head;
+	   return temp;
+	 }
+	 Node curr=head;
+	 for(int i=1;i<=pos-2 && curr!=null;i++)
+	     curr=curr.next;
+	 if(curr==null)
+	    return head;
+	 temp.next=curr.next;
+	 curr.next=temp;
+	 return head;
+	 
+3) Deletion
+   a) Deletion at begining:
+   Logic:
+     if(head==null)
+	     return null;
+	 else
+	    return head.next;
+   
+   b) Deletion at ending:
+   Logic:
+     if(head==null)
+	    return null;
+	 if(head.next==null)
+	    return null;
+	 Node curr=head;
+	 while(curr.next.next!=null)
+	   curr=curr.next;
+	 curr.next=null;
+	 return head;
+	 
+   c) Deletion at middle:
+   
+     
+4) Searching
+   Logic:
+     int pos=1;
+	 Node curr=head;
+	 while(curr!=null)
+	 {
+	   if(curr.data==x)
+	      return pos;
+	   else 
+	    {
+		  pos++;
+		  curr=curr.next;
+		}
+	 }
+	return -1;
+
+
+Remove the duplicates from a sorted linked list:
+Logic:
+ Node curr=head;
+ if(curr==null)
+  return null;
+ while(curr.next!=null)
+ {
+   if(curr.data==curr.next.data)
+        curr.next=curr.next.next;
+   else
+     curr=curr.next;
+ }
+ return head;
+ 
+ 
+ 
+ ================================================================================
+ Single Linked List with all Operations
+ ================================================================================
+ import java.util.*;
+class Node
+{
+  int data;
+  Node next;
+  public Node(int data)
+  {
+    this.data=data;
+    next=null;
+  }
+}
+class SingelLinkedList1
+{
+  public static void displayList(Node head)
+  {
+     Node temp=head;
+     while(temp!=null)
+     {
+        System.out.print(temp.data+"-->");
+        temp=temp.next;
+     }
+     System.out.println();
+  }
+  
+  public static Node addBeg(Node head,int ele)
+  {
+    	Node temp=new Node(ele);
+	temp.next=head;
+	head=temp;
+	return head;
+  }
+
+  public static Node addEnd(Node head,int ele)
+  {
+	 Node temp=new Node(ele);
+	 if(head==null)
+	   return temp;
+	 Node curr=head;
+	 while(curr.next!=null)
+	    curr=curr.next;
+	 curr.next=temp;
+         return head;
+  }
+
+  public static Node addatPos(Node head,int pos,int ele)
+  {
+
+ 	Node temp=new Node(ele);
+	 if(pos==1)
+	 {
+	   temp.next=head;
+	   return temp;
+	 }
+	 Node curr=head;
+	 for(int i=1;i<=pos-2 && curr!=null;i++)
+	     curr=curr.next;
+	 if(curr==null)		//If position given out of range of list
+	    return head;
+	 temp.next=curr.next;
+	 curr.next=temp;
+	 return head;
+  }
+  
+  public static Node delBeg(Node head)
+  {
+	if(head==null)
+	    return null;
+	else
+	    return head.next;
+  }
+  
+  public static Node delEnd(Node head)
+  {
+	 if(head==null)
+	    return null;
+	 if(head.next==null)
+	    return null;
+	 Node curr=head;
+	 while(curr.next.next!=null)
+	   curr=curr.next;
+	 curr.next=null;
+	 return head;
+   }
+
+  public static Node delatPos(Node head,int pos)
+   {
+        if (head == null)
+            return null;
+ 
+        // Store head node
+        Node temp = head;
+ 
+        // If head needs to be removed
+        if (pos == 1)
+        {
+            head = temp.next;   // Change head
+            return head;
+        }
+ 
+        // Find previous node of the node to be deleted
+        for (int i=0; temp!=null && i<pos-2; i++)
+            temp = temp.next;
+ 
+        // If position is more than number of nodes
+        if (temp == null || temp.next == null)
+            return head;
+ 
+        // Node temp->next is the node to be deleted
+        // Store pointer to the next of node to be deleted
+        Node next = temp.next.next;
+ 
+        temp.next = next;  // Unlink the deleted node from list
+     return head;
+   }
+ 
+  public static int searchElement(Node head,int key)
+  {
+	 int pos=1;
+	 Node curr=head;
+	 while(curr!=null)
+	 {
+	   if(curr.data==key)
+	      return pos;
+	   else 
+	    {
+	       pos++;
+	       curr=curr.next;
+	    }
+	 }
+     return -1;
+  }
+
+  public static void main(String args[])
+  {
+     Scanner sc=new Scanner(System.in);
+     Node head=null;
+     int n=sc.nextInt();
+     int ele,pos,ch;
+     while(n-->0)
+     {
+        ele=sc.nextInt();
+        Node n1=new Node(ele);
+        if(head==null)
+             head=n1;
+        else
+         {
+            n1.next=head;
+            head=n1;
+         }
+     }
+     
+    while(true)
+    {
+     System.out.println("1.Add at Begin\n2.Add at End\n3.Add at given Position\n4.Del at Beg\n5.Del at End\n6.Del at given Position\n7.Display\n8.Searching\n9.Exit");
+     System.out.println("Enter your Choice");
+     ch=sc.nextInt();
+     switch(ch)
+     {
+        case 1:
+		ele=sc.nextInt();
+		head=addBeg(head,ele);
+                break;
+        case 2:
+		ele=sc.nextInt();
+		head=addEnd(head,ele);
+                break;
+        case 3:
+		pos=sc.nextInt();
+		ele=sc.nextInt();
+		head=addatPos(head,pos,ele);
+                break;
+        case 4:
+		head=delBeg(head);
+	        break;
+	case 5:
+		head=delEnd(head);
+		break;
+	case 6:
+		pos=sc.nextInt();
+		head=delatPos(head,pos);
+		break;
+	case 7:
+		displayList(head);
+		break;
+	case 8:
+		ele=sc.nextInt();
+		pos=searchElement(head,ele);
+		if(pos==-1)
+ 		  System.out.println(ele+" is not found in the list");
+ 	        else
+		  System.out.println(ele+" is found at "+pos);
+		break;
+	case 9:
+		System.exit(0);
+	default:
+		System.out.println("Please Enter the Valid Option");
+		break;
+     }  
+
+    }
+    
+  }
+}
+
+/*
+Output:
+D:\DS>javac SingleLinkedList1.java
+
+D:\DS>java SingelLinkedList1
+2
+101
+202
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+7
+202-->101-->
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+1
+303
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+7
+303-->202-->101-->
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+2
+404
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+7
+303-->202-->101-->404-->
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+3
+4
+505
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+7
+303-->202-->101-->505-->404-->
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+8
+505
+505 is found at 4
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+4
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+7
+202-->101-->505-->404-->
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+6
+3
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+7
+202-->101-->404-->
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+5
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+7
+202-->101-->
+
+1.Add at Begin
+2.Add at End
+3.Add at given Position
+4.Del at Beg
+5.Del at End
+6.Del at given Position
+7.Display
+8.Searching
+9.Exit
+Enter your Choice
+9
+
+D:\DS>
+
+*/
+
+
+
+
+
+
+
+
